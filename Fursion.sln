@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FursionIDServer", "FursionI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FursionBlogCore", "FursionBlogCore\FursionBlogCore.csproj", "{3B690902-468A-4DE6-B127-1135FCDF5A92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FursionConsole", "FursionConsole\FursionConsole.csproj", "{4C44E2B1-075F-4528-9727-E9DEC2872026}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FursionTools", "FursionTools\FursionTools.csproj", "{6410EFF8-4935-4362-902C-F1369EE59899}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{3B690902-468A-4DE6-B127-1135FCDF5A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B690902-468A-4DE6-B127-1135FCDF5A92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B690902-468A-4DE6-B127-1135FCDF5A92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C44E2B1-075F-4528-9727-E9DEC2872026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C44E2B1-075F-4528-9727-E9DEC2872026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C44E2B1-075F-4528-9727-E9DEC2872026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C44E2B1-075F-4528-9727-E9DEC2872026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6410EFF8-4935-4362-902C-F1369EE59899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6410EFF8-4935-4362-902C-F1369EE59899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6410EFF8-4935-4362-902C-F1369EE59899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6410EFF8-4935-4362-902C-F1369EE59899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
