@@ -7,5 +7,13 @@ namespace Fursion.FursionBlogCore{
         public void DeleteBlog(){
                 
         }
+        public static void BlogIDAnalysis(){
+
+        }
+        public void SaveBolg() {
+
+
+        }
+
     }
 }
