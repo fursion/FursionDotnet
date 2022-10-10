@@ -1,3 +1,4 @@
+
 class fursionDOM {
     constructor(fristname) {
         this.fristname = fristname;
@@ -60,30 +61,38 @@ class fursionElement extends HTMLElement {
         this.audiolist = new Array();
 
     }
-    observedAttributes() {
-        return ['src']
+    static get observedAttributes() {
+        return ['src'];
     }
     get src() {
-        this.getAttribute('src') || '';
+        return this._src;
     }
     set src(value) {
         this.setAttribute('src', value);
     }
     addEvent() {
-        let audio = this.shadowDom.querySelector('.audio-player');
+        this.audio = this.shadowDom.querySelector('.audio-player');
         this.setImage();
         this.audiotitle.innerHTML = "音乐";
-        this.audiotitle.style.color = 'rgba(233,233,233,1)';
-        audio.setAttribute("src", this.audiourl);
+        this.audiotitle.style.color = 'rgba(0,0,233,1)';
+        this.audio.setAttribute("src", this.audiourl);
     }
     setImage() {
         let image = this.shadowDom.querySelector('.audio-img');
         image.setAttribute("src", this.defimage);
     }
+    connectedCallback() {
+        console.log("挂载组件");
+        //this.setAttribute("src", "3");
+    }
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(name);
-        console.log(this.src());
+        this._src = newValue;
         this.audiourl = this.src;
+        this._updateRendering();
+    }
+    _updateRendering() {
+        this.audio.setAttribute("src", this.audiourl);
     }
 }
 window.customElements.define("fs-audio", fursionElement);
+//https://www.zhangxinxu.com/wordpress/2019/08/js-dom-mutation-observer/
