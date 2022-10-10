@@ -68,6 +68,7 @@ class fursionElement extends HTMLElement {
         return this._src;
     }
     set src(value) {
+        console.log("属性设置");
         this.setAttribute('src', value);
     }
     addEvent() {
@@ -83,7 +84,7 @@ class fursionElement extends HTMLElement {
     }
     connectedCallback() {
         console.log("挂载组件");
-        //this.setAttribute("src", "3");
+        this.src = this.audiourl;
     }
     attributeChangedCallback(name, oldValue, newValue) {
         this._src = newValue;
