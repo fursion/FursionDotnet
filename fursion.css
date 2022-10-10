@@ -1,0 +1,10 @@
+.fursion-box{
+   box-shadow: 0 0 15px  inset;
+   height: 30px;
+}
+.fs-glass{
+    filter :blur(6px);
+}
+.fs-color-red{
+    background-color: rgba(179, 222, 110, 0.4);
+}

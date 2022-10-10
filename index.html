@@ -2,25 +2,21 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="/fursion.css">
 </head>
 
 <body>
-    <script src="/Fursion.js"></script>
-    <div>
-        <label class="title" id="title">测试</label>
-        <button onclick="EditText('title','测试成功！')">修改标题</button>
-    </div>
-    <div>
-        <label class="title">测试</label>
-        <button onclick="EditText('title','测试成功！')">修改标题</button>
-    </div>
-    <div>
-        <label class="title">测试</label>
-        <button onclick="EditText('title','测试成功！')">修改标题</button>
-    </div>
-    <fursion-el></fursion-el>
-    <fursion-el></fursion-el>
-    <fursion-el></fursion-el>
+    <script src="/fursion.js"></script>
+    <fs-audio></fs-audio>
+    <fs-audio src="qwert"></fus-audio>
+        <template>
+            <div class="audio-box">
+                <img class="audio-img" src="" alt="...">
+                <label id="audio-title"></label>
+                <button id="btn"></button>
+                <audio class="audio-player" src="" controls="controls"></audio>
+            </div>
+        </template>
 </body>
 
 
