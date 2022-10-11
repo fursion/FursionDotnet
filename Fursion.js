@@ -86,6 +86,9 @@ class fursionElement extends HTMLElement {
         console.log("挂载组件");
         this.src = this.audiourl;
     }
+    disconnectedCallback() {
+        console.log("移除组件");
+    }
     attributeChangedCallback(name, oldValue, newValue) {
         this._src = newValue;
         this.audiourl = this.src;
@@ -95,5 +98,46 @@ class fursionElement extends HTMLElement {
         this.audio.setAttribute("src", this.audiourl);
     }
 }
+
+class FursionElement extends HTMLElement {
+    constructor() {
+        super();
+        this.initevent = new CustomEvent("binding", {})
+        this.addEventListener("binding", this.init);
+        this.dispatchEvent(this.initevent);
+    }
+    init() {
+        console.log("自定义事件");
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(newValue);
+    }
+}
+class fursionlogin extends FursionElement {
+    constructor() {
+        super();
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+
+    }
+    init() {
+        console.log(this.querySelector("#con"));
+        var _this=this;
+        window.onload = function () {
+            var ob = document.getElementById("con");
+            console.log(_this.querySelector("#con"));
+            console.log(this.window.document.querySelector("#con"));
+            console.log(ob);
+        }
+    }
+    onload(){
+        console.log("call");
+    }
+    test() {
+
+    }
+}
+//window.customElements.define("fs-control", Fursionel);
+window.customElements.define("fs-con", fursionlogin);
 window.customElements.define("fs-audio", fursionElement);
 //https://www.zhangxinxu.com/wordpress/2019/08/js-dom-mutation-observer/

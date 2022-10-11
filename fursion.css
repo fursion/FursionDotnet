@@ -1,10 +1,48 @@
-.fursion-box{
-   box-shadow: 0 0 15px  inset;
-   height: 30px;
+.fursion-box {
+    box-shadow: 0 0 15px inset;
+    height: 30px;
 }
-.fs-glass{
-    filter :blur(6px);
+
+.fs-glass {
+    filter: blur(6px);
 }
-.fs-color-red{
+
+.fs-color-red {
     background-color: rgba(179, 222, 110, 0.4);
+}
+
+.fs-show button {
+    height: 26px;
+    width: 60px;
+}
+
+.fs-show input {
+    height: 20px;
+    box-sizing: border-box;
+}
+
+.fs-show input[type=button] {
+    height: 20px;
+    width: 60px;
+}
+
+.fs-box-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fs-box-block {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.fs-btn-none{
+    border: 0ch;
+    border-radius: 3px;
+    outline: none;
+    font-size: x-small;
+    color: white;
+}
+.fs-color-bl {
+    background-color: hsl(180, 75%, 40%);
 }
