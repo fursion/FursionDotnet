@@ -1,0 +1,60 @@
+<mxfile host="65bd71144e">
+    <diagram id="bhSEdAC7fDMYBAS1dJLk" name="第 1 页">
+        <mxGraphModel dx="901" dy="640" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="5" value="" style="edgeStyle=none;html=1;" parent="1" source="2" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="创建实例" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="400" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="调用" style="edgeStyle=none;html=1;" edge="1" parent="1" source="4" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;div style=&quot;background-color: rgb(255 , 255 , 255) ; font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 18px&quot;&gt;&lt;span style=&quot;color: #0000ff&quot;&gt;constructor&lt;/span&gt;()&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255 , 255 , 255) ; font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 18px&quot;&gt;执行构造函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="490" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="向window.onload添加事件" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Init()&lt;br&gt;组件自定义内容的初始化函数" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="485" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="10" target="2">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;div style=&quot;background-color: rgb(255 , 255 , 255) ; font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 18px&quot;&gt;&lt;span style=&quot;color: #267f99&quot;&gt;FursionElement&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="10" y="400" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;div style=&quot;background-color: rgb(255 , 255 , 255) ; font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 18px&quot;&gt;&lt;span style=&quot;color: #795e26&quot;&gt;findComponent&lt;/span&gt;()&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255 , 255 , 255) ; font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 18px&quot;&gt;子组件查找和绑定&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="585" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="ture" style="edgeStyle=none;html=1;" edge="1" parent="1" source="14" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="falese" style="edgeStyle=none;html=1;" edge="1" parent="1" source="14">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="590" y="697.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="&lt;span style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; color: rgb(121 , 94 , 38)&quot;&gt;findComponent&lt;/span&gt;&lt;span style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; background-color: rgb(255 , 255 , 255)&quot;&gt;()&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="680" width="180" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="DoSomething" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="750" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="输出异常" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="673.75" width="120" height="47.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="21" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Window.onload" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="160" y="667.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

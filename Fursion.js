@@ -102,12 +102,25 @@ class fursionElement extends HTMLElement {
 class FursionElement extends HTMLElement {
     constructor() {
         super();
-        this.initevent = new CustomEvent("binding", {})
-        this.addEventListener("binding", this.init);
-        this.dispatchEvent(this.initevent);
+        this.init();
+        this.DrawCustomComponent();
     }
     init() {
-        console.log("自定义事件");
+        var _this = this;
+        window.onload = function () {
+            if (_this.findComponent()) {
+                _this.DoSomething();
+            }
+        }
+    }
+    findComponent() {
+        return true;
+    }
+    DoSomething() {
+
+    }
+    DrawCustomComponent() {
+
     }
     attributeChangedCallback(name, oldValue, newValue) {
         console.log(newValue);
@@ -117,25 +130,22 @@ class fursionlogin extends FursionElement {
     constructor() {
         super();
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    findComponent() {
+        var _this = this;
+        this.UserName = this.querySelector('#username');
+        this.Submitbtn = this.querySelector("input[type=button]");
+        this.form = this.querySelector("form");
+        return true;
+    }
+    DoSomething() {
+        var _this = this;
+        this.Submitbtn.onclick = function () {
+            console.log(_this.UserName.value);
+            console.log(_this.form);
+        };
+        this.Submitbtn.setAttribute("style", "width: 100px; color:red;");
+    }
 
-    }
-    init() {
-        console.log(this.querySelector("#con"));
-        var _this=this;
-        window.onload = function () {
-            var ob = document.getElementById("con");
-            console.log(_this.querySelector("#con"));
-            console.log(this.window.document.querySelector("#con"));
-            console.log(ob);
-        }
-    }
-    onload(){
-        console.log("call");
-    }
-    test() {
-
-    }
 }
 //window.customElements.define("fs-control", Fursionel);
 window.customElements.define("fs-con", fursionlogin);

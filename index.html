@@ -11,12 +11,27 @@
 </head>
 
 <body>
-    <div id="con">失败</div>
-    <fs-con>
-        <div id="con">测试</div>
+    <fs-con onsubmit="ceshi()">
+        <style>
+            .th {
+                width: 300px;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+        </style>
+        <div class="th">
+            <form action="" class="th">
+                <input id="username" type="text">
+                <input class="pwd" type="text">
+                <input class="submit" type="button" value="登陆">
+            </form>
+        </div>
     </fs-con>
     <script>
-        function ceshi(){
+        function ceshi() {
             console.log("测试");
         }
     </script>
