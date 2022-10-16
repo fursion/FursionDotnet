@@ -100,54 +100,136 @@ class fursionElement extends HTMLElement {
 }
 
 class FursionElement extends HTMLElement {
+    Template = ``;
     constructor() {
         super();
         this.init();
-        this.DrawCustomComponent();
+    }
+    get mode() {
+        return this.getAttribute('mode');
+    }
+    set mode(value) {
+        this.setAttribute('mode', value);
     }
     init() {
         var _this = this;
         window.onload = function () {
-            if (_this.findComponent()) {
+            if (_this.CheckArguments()) {
                 _this.DoSomething();
             }
         }
     }
-    findComponent() {
+    CheckArguments() {
+        if (JSON.parse(this.mode)) {
+            this.DrawCustomComponent();
+            return this.findComponent(this.shadowDom);
+        }
+        return this.findComponent(this);
+    }
+    findComponent(p) {
         return true;
     }
     DoSomething() {
 
     }
     DrawCustomComponent() {
-
+        this.template = document.createElement('template');
+        this.template.innerHTML = this.Template;
+        this.shadowDom = this.attachShadow({ mode: "open" });
+        this.shadowDom.appendChild(this.template.content);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         console.log(newValue);
     }
 }
 class fursionlogin extends FursionElement {
+    Template = `
+    <div><style>
+    input[type=text] {
+        height: 20px;
+        outline: none;
+        box-sizing: border-box;
+        margin: 5px;
+    }
+
+    input[type=text]::placeholder {
+        padding-left: 3px;
+        font-size: 1pt;
+    }
+
+    input[type=text]:focus {
+        outline: none;
+        border: 2px solid hsl(190, 87%, 20%);
+    }
+
+    input[type=password] {
+        height: 20px;
+        outline: none;
+        box-sizing: border-box;
+        margin: 5px;
+    }
+
+    input[type=password]::placeholder {
+        padding-left: 3px;
+        font-size: 1pt;
+    }
+    input[type=password]:focus{
+        outline: none;
+        border: 2px solid hsl(190, 87%, 20%);
+    }
+    input[type=button] {
+        height: 20px;
+        width: 60px;
+        border: 0ch;
+        border-radius: 3px;
+        margin: 5px;
+        outline: none;
+        font-size: x-small;
+        background-color: hsl(190, 87%, 50%);
+        color: hsl(5, 0%, 95%);
+    }
+
+    input[type=button]:active {
+        background-color: hsl(190, 87%, 20%);
+    }
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<div class="box">
+<input type="text" name="" id="_input_text" placeholder="用户名">
+<input type="password" name="" id="_input_pwd" placeholder="密码">
+<input type="button" value="点击登录">
+</div>
+    </div>  
+    `;
     constructor() {
         super();
     }
-    findComponent() {
-        var _this = this;
-        this.UserName = this.querySelector('#username');
-        this.Submitbtn = this.querySelector("input[type=button]");
-        this.form = this.querySelector("form");
+    get action() {
+        return this.getAttribute('action');
+    }
+    set action(value) {
+        this.setAttribute('action', value);
+    }
+    findComponent(p) {
+        var _this = p;
+        this.UserName = _this.querySelector('input[type=text]');
+        this.PWD = _this.querySelector('input[type=password]');
+        this.Submitbtn = _this.querySelector("input[type=button]");
         return true;
     }
     DoSomething() {
         var _this = this;
         this.Submitbtn.onclick = function () {
             console.log(_this.UserName.value);
-            console.log(_this.form);
+            console.log(_this.PWD.value);
         };
-        this.Submitbtn.setAttribute("style", "width: 100px; color:red;");
     }
-
 }
-//window.customElements.define("fs-control", Fursionel);
 window.customElements.define("fs-con", fursionlogin);
 window.customElements.define("fs-audio", fursionElement);
 //https://www.zhangxinxu.com/wordpress/2019/08/js-dom-mutation-observer/

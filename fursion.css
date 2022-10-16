@@ -45,3 +45,13 @@
 .fs-color-bl {
     background-color: hsl(180, 75%, 40%);
 }
+input{
+    padding-left: 2px;
+}
+input:focus{
+    outline: none;
+    border: 2px solid hsl(195, 40%, 60%);
+}
+input::placeholder{
+    padding-left: 2px;
+}
