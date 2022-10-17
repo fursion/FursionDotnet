@@ -235,4 +235,23 @@ class QRCodeLogin extends fursionElement {
 window.customElements.define("fs-qrlogin", QRCodeLogin);
 window.customElements.define("fs-con", fursionlogin);
 window.customElements.define("fs-audio", fursionElement);
+class tools {
+
+    constructor(na) {
+        this.targername = na;
+        this.init();
+    }
+    init() {
+        this.targer = document.getElementById(this.targername);
+    }
+    show() {
+        this.targer.style.display = 'block';
+    }
+    hide() {
+        this.targer.style.display = 'none';
+    }
+}
+const $$ = function (na) {
+    return new tools(na);
+}
 //https://www.zhangxinxu.com/wordpress/2019/08/js-dom-mutation-observer/

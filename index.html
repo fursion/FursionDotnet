@@ -43,7 +43,7 @@
     </div>
     <div>
         <style>
-            .box-br{
+            .box-br {
                 max-width: 500px;
                 min-width: 300px;
                 max-height: 500px;
@@ -53,6 +53,7 @@
                 border-radius: 15px;
                 border: #219ebc solid 1px;
             }
+
             .box {
                 display: flex;
                 flex-direction: column;
@@ -63,17 +64,25 @@
             img {
                 width: 150px;
                 height: 150px;
-                border: solid 1px;
+                border: #219ebc solid 1px;
                 border-radius: 10px;
             }
-            input[type=button]{
+
+            input[type=button] {
                 border: #219ebc solid 1px;
                 width: 60px;
+                margin-bottom: 10px;
                 border-radius: 3px;
             }
+
+            input[type=button]:active {
+                background-color: #219ebc;
+            }
+
             input[type=text],
             input[type=password] {
                 padding-left: 3px;
+                margin-bottom: 10px;
                 border: none;
                 border-bottom: 1px solid #219ebc;
             }
@@ -82,17 +91,65 @@
             input[type=password]::placeholder {
                 padding: 3px;
                 font-size: 1px;
+
+            }
+
+            .box-top {
+                height: 64px;
+                margin-top: 15px;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+
+            }
+
+            .box-title {
+                border: #219ebc 1px solid;
+                text-align: center;
+                width: 100px;
+                height: 20px;
+                font-size: x-small;
+                color: #219ebc;
+                margin-left: 10px;
+            }
+
+            .box-bg-1 {
+                display: block;
+            }
+
+            .box-bg-2 {
+                display: none;
+            }
+
+            .tg {
+                margin-left: 10px;
+                background-color: #219ebc;
+                width: 64px;
+                height: 64px;
+                align-self: flex-end;
             }
         </style>
-        <div class="box-br box">
-            <div class="box">
-                <input type="text" name="" id="">
-                <input type="password" name="" id="">
-                <input type="button" value="click">
+        <div class="box-br">
+            <div class="box-bg-1" id="box-bg-1">
+                <div class="box-top">
+                    <div class="box-title">扫码登录</div>
+                    <div class="tg" onclick="$$('box-bg-2').show();$$('box-bg-1').hide();"></div>
+                </div>
+                <div class="box">
+                    <input type="text" name="" placeholder="用户名/邮箱/手机号">
+                    <input type="password" name="" placeholder="密码">
+                    <input type="button" value="click">
+                </div>
             </div>
-            <div class="box">
-                <img
-                    src="data:image/png;base64,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">
+            <div class="box-bg-2" id="box-bg-2">
+                <div class="box-top">
+                    <div class="box-title">账户密码登录</div>
+                    <div class="tg" onclick="$$('box-bg-1').show();$$('box-bg-2').hide();"></div>
+                </div>
+                <div class="box">
+                    <img
+                        src="data:image/png;base64,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">
+                </div>
             </div>
         </div>
     </div>
