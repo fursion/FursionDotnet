@@ -185,14 +185,12 @@ class fursionlogin extends FursionElement {
         margin: 5px;
         outline: none;
         font-size: x-small;
-        background-color: hsl(190, 87%, 50%);
-        color: hsl(5, 0%, 95%);
+        background-color: #457b9d;
+        color: #edf6f9;
     }
-
     input[type=button]:active {
-        background-color: hsl(190, 87%, 20%);
+        background-color: #a8dadc;
     }
-
     .box {
         display: flex;
         flex-direction: column;
@@ -230,6 +228,11 @@ class fursionlogin extends FursionElement {
         };
     }
 }
+class QRCodeLogin extends fursionElement {
+    Template = ``;
+
+}
+window.customElements.define("fs-qrlogin", QRCodeLogin);
 window.customElements.define("fs-con", fursionlogin);
 window.customElements.define("fs-audio", fursionElement);
 //https://www.zhangxinxu.com/wordpress/2019/08/js-dom-mutation-observer/
