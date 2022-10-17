@@ -242,7 +242,7 @@ class tools {
         this.init();
     }
     init() {
-        this.targer = document.getElementById(this.targername);
+        this.targer = document.querySelector(this.targername);
     }
     show() {
         this.targer.style.display = 'block';
