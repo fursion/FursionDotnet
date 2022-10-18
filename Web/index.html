@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fursion.css">
+    <script src="fursion.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <fs-con mode="true">
+        <style>
+            .th {
+                width: 300px;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+        </style>
+        <div class="th">
+            <form action="" class="th">
+                <input id="username" type="text">
+                <input class="pwd" type="password">
+                <input class="submit" type="button" value="登陆">
+            </form>
+        </div>
+    </fs-con>
+    <script>
+        function ceshi() {
+            console.log("测试");
+        }
+    </script>
+    <div class="fs-show">
+        <div class="fs-box-row">
+            <input type="text" class="fs-box-block">
+            <input type="button" class="fs-box-block fs-color-bl fs-btn-none" value="确定">
+        </div>
+    </div>
+    <script>
+    </script>
+    <fs-qrlogin mode="true"></fs-qrlogin>
+</body>
+
+</html>
