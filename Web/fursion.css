@@ -55,3 +55,26 @@ input:focus{
 input::placeholder{
     padding-left: 2px;
 }
+.Split-Box {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background-color: rgba(169, 152, 152, 0.532);
+    backdrop-filter: blur(10px);
+}
+
+.window-3x3 {
+    width: calc(1/3*100%);
+    height: calc(1/3*100%);
+    box-sizing: border-box;
+    border: 1px solid rgba(169, 152, 152, 0.7);
+}
+
+.window-2x2 {
+    width: calc(1/2*100%);
+    height: calc(1/2*100%);
+    box-sizing: border-box;
+    border: 1px solid rgba(169, 152, 152, 0.7);
+}
