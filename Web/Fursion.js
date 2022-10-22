@@ -119,7 +119,6 @@ class fursionElement extends HTMLElement {
         this.audio.setAttribute("src", this.audiourl);
     }
 }
-
 class FursionElement extends HTMLElement {
     Template = ``;
     constructor() {
@@ -170,6 +169,13 @@ class FursionElement extends HTMLElement {
         console.log(newValue);
     }
 }
+class IframeBox extends FursionElement{
+    Template=`<div class="Split-Box"></div>`;
+    constructor(){
+        super();
+    }
+}
+window.customElements.define("fs-iframebox",IframeBox);
 class fursionlogin extends FursionElement {
     Template = `<div><style>input[type=text]{height:20px;outline:none;box-sizing:border-box;margin:5px}input[type=text]::placeholder{padding-left:3px;font-size:1pt}input[type=text]:focus{outline:none;border:2px solid hsl(190,87%,20%)}input[type=password]{height:20px;outline:none;box-sizing:border-box;margin:5px}input[type=password]::placeholder{padding-left:3px;font-size:1pt}input[type=password]:focus{outline:none;border:2px solid hsl(190,87%,20%)}input[type=button]{height:20px;width:60px;border:0ch;border-radius:3px;margin:5px;outline:none;font-size:x-small;background-color:#457b9d;color:#edf6f9}input[type=button]:active{background-color:#a8dadc}.box{display:flex;flex-direction:column;align-items:center}</style><div class="box"><input type="text"name=""id="_input_text"placeholder="用户名"><input type="password"name=""id="_input_pwd"placeholder="密码"><input type="button"value="点击登录"></div></div>`;
     constructor() {
