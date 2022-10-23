@@ -157,7 +157,7 @@
                 element.src = element.src;
             });
         }, 60000);
-        var _this = this;
+        let _this = this;
         window.addEventListener('fullscreenchange', function (e) {
             console.log(window.document.fullscreenElement);
             if (window.document.fullscreenElement && e.target.tagName == 'IFRAME') {
@@ -385,6 +385,16 @@
             margin-right: 10px;
             border: 1px solid rgba(211, 194, 194, 0.648);
         }
+
+        .new-item {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .new-item:active {
+            background: #1890FF;
+        }
     </style>
     <script>
         function ClosePage() {
@@ -430,7 +440,7 @@
                     }
                     function LoadingConfig() {
                         let config = localStorage.getItem('Config');
-                        this.ObjConfig = JSON.parse(config);
+                        _this.ObjConfig = JSON.parse(config);
                         let ElRoot = document.getElementById('con-root');
                         while (ElRoot.hasChildNodes()) {
                             ElRoot.removeChild(ElRoot.firstChild);
@@ -446,7 +456,32 @@
                                 DrawItem(item, obj, El, true);
                             }
                         }
-                        DrawItem('New',null,El,false);
+                        NewItemBtn(El, obj);
+                    }
+                    function GetTemplate(localdata, tempdata, tproot) {
+                        for (var item in localdata) {
+                            if (localdata[item] instanceof Object) {
+                                let div = document.createElement("div");
+                                div.classList.add('item-box');
+                                tproot.appendChild(GetTemplate(localdata[item], tempdata[item], div));
+                            } else {
+                                tproot.appendChild(DrawTemplateItem(item, tempdata));
+                            }
+                        }
+                        return tproot;
+                    }
+                    function DrawTemplateItem(item, tempdata) {
+                        let itembox = document.createElement("div");
+                        itembox.classList.add('item-box');
+                        let label = document.createElement("label");
+                        let input = document.createElement("input");
+                        input.onchange = function () {
+                            tempdata[item] = input.value;
+                        }
+                        label.innerText = item + " :";
+                        itembox.appendChild(label);
+                        itembox.appendChild(input);
+                        return itembox;
                     }
                     function DrawItem(nodename, data, lastnode, isDr) {
                         if (isDr) {
@@ -475,16 +510,48 @@
                         }
 
                     }
+                    function NewItemBtn(El, localdata) {
+                        console.log(localdata);
+                        if (!localdata[0] instanceof Object || undefined == localdata[0]) {
+                            return;
+                        }
+                        let div = document.createElement("div");
+                        div.classList.add('new-item');
+                        div.onclick = function () {
+                            let div = document.createElement("div");
+                            div.classList.add('item-box');
+                            var tempdata = {};
+                            btn = El.lastChild;
+                            console.log(btn);
+                            El.removeChild(El.lastChild);
+                            El.appendChild(GetTemplate(localdata[0], tempdata, div));
+                            El.appendChild(btn);
+                            console.log(localdata);
+                            console.log(localdata instanceof Array);
+                            _this.ObjConfig[El].push(tempdata);
+                            console.log(localdata);
+                            Save=function(){
+                                var str = JSON.stringify(_this.ObjConfig);
+                                localStorage.setItem('Config',str);
+                                console.log(str);
+                            }
+                        }
+                        div.innerHTML = `<svg t="1666521266920" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2177" width="16" height="16"><path d="M512 938.666667C276.362667 938.666667 85.333333 747.637333 85.333333 512S276.362667 85.333333 512 85.333333s426.666667 191.029333 426.666667 426.666667-191.029333 426.666667-426.666667 426.666667z m0-64c200.298667 0 362.666667-162.368 362.666667-362.666667S712.298667 149.333333 512 149.333333 149.333333 311.701333 149.333333 512s162.368 362.666667 362.666667 362.666667z m32-394.666667h128a32 32 0 0 1 0 64H544v128a32 32 0 0 1-64 0V544H352a32 32 0 0 1 0-64h128V352a32 32 0 0 1 64 0v128z" p-id="2178"></path></svg>`;
+                        El.appendChild(div);
+                    }
                     function Save() {
                         console.log(ObjConfig);
                     }
                 </script>
             </div>
-            <div class="btn-group">
-                <input type="button" value="保存" onclick="Save()">
-                <input type="button" value="取消" id="" style="background-color:#FF4D4F;" onclick="ClosePage()">
-                <input type="button" value="重置" onclick="Reset()">
+            <div>
+                <div class="btn-group">
+                    <input type="button" value="保存" onclick="Save()">
+                    <input type="button" value="取消" id="" style="background-color:#FF4D4F;" onclick="ClosePage()">
+                    <input type="button" value="重置" onclick="Reset()">
+                </div>
             </div>
+
         </div>
     </div>
     <script>
