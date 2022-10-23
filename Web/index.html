@@ -448,11 +448,11 @@
                         PJson(ObjConfig, ElRoot);
                     }
 
-                    function PJson(obj, El, key, AddDelBtn,lastobj) {
+                    function PJson(obj, El, key, AddDelBtn, lastobj) {
                         if (obj instanceof Array) {
                             for (var item in obj) {
                                 if (obj[item] instanceof Object) {
-                                    PJson(obj[item], DrawItem(item, obj, El, false), item, true,obj);
+                                    PJson(obj[item], DrawItem(item, obj, El, false), item, true, obj);
                                 } else {
                                     DrawItem(item, obj, El, true);
                                 }
@@ -467,23 +467,26 @@
                                 }
                             }
                             if (AddDelBtn) {
-                                let div = document.createElement("div");
-                                div.classList.add('new-item');
-                                div.innerHTML = `<svg t="1666539305873" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15714" width="16" height="16"><path d="M67.661 517.598a447.654 455.375 0 1 0 895.308 0 447.654 455.375 0 1 0-895.308 0Z" fill="#d81e06" p-id="15715"></path><path d="M683.858 350.83H335.13c-4.4 0-8-3.6-8-8v-24.345c0-4.4 3.6-8 8-8h348.729c4.4 0 8 3.6 8 8v24.345c-0.001 4.4-3.601 8-8.001 8zM657.18 383.79h-34.698c0.033 0.515 0.056 1.034 0.056 1.557v267.779c0 33.728-27.596 61.324-61.324 61.324H457.909c-34.023 0-61.859-27.837-61.859-61.859V385.347c0-0.524 0.023-1.042 0.056-1.557H361.81c-6.6 0-12 5.4-12 12v360.012c0 6.6 5.4 12 12 12h295.37c6.6 0 12-5.4 12-12V395.79c0-6.6-5.4-12-12-12z" fill="#FFFFFF" p-id="15716"></path><path d="M511.333 251.135m-43.846 0a43.846 43.846 0 1 0 87.692 0 43.846 43.846 0 1 0-87.692 0Z" fill="#FFFFFF" p-id="15717"></path></svg>`;
-                                div.onclick = function () {
-                                    
-                                    console.log(El);
-                                    console.log(lastobj);
-                                    
+                                AddDelButton(El, function () {
                                     lastobj.splice(key);
                                     El.parentNode.removeChild(El);
-                                }
-                                El.appendChild(div);
+                                });
                             }
                         }
                         if (key != undefined) {
                             NewItemBtn(El, obj, key);
                         }
+                    }
+                    function AddDelButton(El, event) {
+                        let div = document.createElement("div");
+                        div.classList.add('new-item');
+                        div.innerHTML = `<svg t="1666539305873" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15714" width="16" height="16"><path d="M67.661 517.598a447.654 455.375 0 1 0 895.308 0 447.654 455.375 0 1 0-895.308 0Z" fill="#d81e06" p-id="15715"></path><path d="M683.858 350.83H335.13c-4.4 0-8-3.6-8-8v-24.345c0-4.4 3.6-8 8-8h348.729c4.4 0 8 3.6 8 8v24.345c-0.001 4.4-3.601 8-8.001 8zM657.18 383.79h-34.698c0.033 0.515 0.056 1.034 0.056 1.557v267.779c0 33.728-27.596 61.324-61.324 61.324H457.909c-34.023 0-61.859-27.837-61.859-61.859V385.347c0-0.524 0.023-1.042 0.056-1.557H361.81c-6.6 0-12 5.4-12 12v360.012c0 6.6 5.4 12 12 12h295.37c6.6 0 12-5.4 12-12V395.79c0-6.6-5.4-12-12-12z" fill="#FFFFFF" p-id="15716"></path><path d="M511.333 251.135m-43.846 0a43.846 43.846 0 1 0 87.692 0 43.846 43.846 0 1 0-87.692 0Z" fill="#FFFFFF" p-id="15717"></path></svg>`;
+                        div.onclick = event;
+                        /*div.onclick = function () {
+                            lastobj.splice(key);
+                            El.parentNode.removeChild(El);
+                        }*/
+                        El.appendChild(div);
                     }
                     function GetTemplate(localdata, tempdata, tproot) {
                         for (var item in localdata) {
