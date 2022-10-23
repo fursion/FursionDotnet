@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.settingpage {
+    position: absolute;
+    width: 70%;
+    height: 80%;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    background-size: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.close-btn {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    width: 16px;
+    height: 16px;
+}
+
+.close-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.mask {
+    width: 100vw;
+    height: 100vh;
+    background: url(https://cdn.pixabay.com/photo/2022/09/28/10/43/sea-7484743_1280.jpg);
+    background-size: 100%;
+}
+
+.mask .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(240, 248, 255, 0.3);
+    filter: blur(0px);
+}
+
+.title h1 {
+    padding-left: 5%;
+}
+
+.line {
+    margin-left: 5%;
+    width: 90%;
+    border-bottom: 1px solid rgba(163, 158, 158, 0.5);
+}
+
+.content {
+    margin-left: 5%;
+    width: 90%;
+    height: 80%;
+    box-sizing: border-box;
+    border: 1px solid rgba(163, 158, 158, 0.5);
+    border-top: none;
+}
+.btn-group{
+    position: absolute;
+    bottom: 10px;
+    right: 5%;
+}
+.btn-group input[type=button]{
+    width: 80px;
+    border: none;
+    border-radius: 3px;
+    background-color: #1890FF;
+    font-size: 14px;
+    color: white;
+}
