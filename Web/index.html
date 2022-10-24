@@ -24,6 +24,7 @@
             align-items: flex-start;
             flex-wrap: wrap;
             background-color: rgba(169, 152, 152, 0.532);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
@@ -46,6 +47,7 @@
             height: 2vh;
             min-height: 18px;
             background-color: rgba(128, 110, 86, 0.731);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             display: flex;
             flex-direction: row;
@@ -74,6 +76,46 @@
             height: 1.5vh;
             min-width: 16px;
             min-height: 16px;
+        }
+
+        .iframeController {
+            width: 32px;
+            height: 30px;
+        }
+
+        .tip {
+            position: relative;
+        }
+        .tip::after {
+            visibility: hidden;
+            width: auto;
+            min-width: 60px;
+            background-color: rgba(0, 0, 0, 0.51);
+            color: #fff;
+            text-align: center;
+            font-size: 4px;
+            border-radius: 6px;
+            padding: 5px 0;
+            content: attr(tiptext);
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tip:hover::after{
+            visibility: visible;
+            opacity: 1;
+        }
+        .tip::before{
+            visibility: hidden;
+            opacity: 0;
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+        }
+
+        .iframeController svg {
+            height: 30px;
         }
     </style>
     <script>
@@ -119,7 +161,7 @@
             box_title.classList.add("it-asset-box-title");
             box_title.id = MonitTask.name + '-title';
             box_title.onclick = function () {
-                screen(MonitTask.name + '-iframe');
+                //screen(MonitTask.name + '-iframe');
             };
             let tag = document.createElement("div");
             tag.classList.add("box-tag");
@@ -127,8 +169,25 @@
             lable.id = MonitTask.name + '-lable';
             lable.innerHTML = MonitTask.title;
             tag.style.backgroundColor = MonitTask.tag_color;
+            //添加控制器
+            let iframeController = document.createElement("div");
+            iframeController.classList.add('iframeController', 'tip');
+            iframeController.innerHTML = `<svg t="1666593216208" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13622" width="32" height="32" data-spm-anchor-id="a313x.7781069.0.i15"><path d="M764.867148 249.793136 259.0735 249.793136c-143.070486 0-259.052011 115.984594-259.052011 259.052011 0 143.07151 115.982548 259.050987 259.052011 259.050987l505.793648 0c143.067416 0 259.050987-115.979478 259.050987-259.050987C1023.917112 365.778754 907.933541 249.793136 764.867148 249.793136zM259.0735 745.516428c-130.501216 0-236.671281-106.172111-236.671281-236.671281 0-130.501216 106.170065-236.671281 236.671281-236.671281S495.744781 378.344954 495.744781 508.84617C495.744781 639.34534 389.574716 745.516428 259.0735 745.516428z" p-id="13623" fill="#515151" data-spm-anchor-id="a313x.7781069.0.i14"></path></svg>`;
+            var temp = false;
+            iframeController.onclick = function (e) {
+                temp = !temp;
+                if (temp) {
+                    iframeController.innerHTML = `<svg t="1666594278133" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14161" width="32" height="32"><path d="M764.904497 251.418146 259.086289 251.418146c-143.076626 0-259.065314 115.989711-259.065314 259.065314 0 143.077649 115.988688 259.063267 259.065314 259.063267l505.818207 0c143.074579 0 259.063267-115.985618 259.063267-259.063267C1023.967764 367.407857 907.980099 251.418146 764.904497 251.418146zM764.904497 747.164974c-130.507356 0-236.682537-106.175181-236.682537-236.682537S634.397141 273.798876 764.904497 273.798876s236.683561 106.176205 236.683561 236.683561S895.411853 747.164974 764.904497 747.164974z" p-id="14162" fill="#1296db"></path></svg>`;
+
+                } else {
+                    iframeController.innerHTML = `<svg t="1666593216208" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13622" width="32" height="32" data-spm-anchor-id="a313x.7781069.0.i15"><path d="M764.867148 249.793136 259.0735 249.793136c-143.070486 0-259.052011 115.984594-259.052011 259.052011 0 143.07151 115.982548 259.050987 259.052011 259.050987l505.793648 0c143.067416 0 259.050987-115.979478 259.050987-259.050987C1023.917112 365.778754 907.933541 249.793136 764.867148 249.793136zM259.0735 745.516428c-130.501216 0-236.671281-106.172111-236.671281-236.671281 0-130.501216 106.170065-236.671281 236.671281-236.671281S495.744781 378.344954 495.744781 508.84617C495.744781 639.34534 389.574716 745.516428 259.0735 745.516428z" p-id="13623" fill="#515151" data-spm-anchor-id="a313x.7781069.0.i14"></path></svg>`;
+                }
+            }
+            iframeController.setAttribute('tiptext','点击打开/关闭自动定时刷新');
+            //
             box_title.appendChild(tag);
             box_title.appendChild(lable);
+            box_title.appendChild(iframeController);
             box.appendChild(box_title);
             let iframe = document.createElement("iframe");
             iframe.id = MonitTask.name + '-iframe';
@@ -157,17 +216,18 @@
                 element.src = element.src;
             });
         }, 60000);
+        function SetRefresh() {
+            if (true) {
+
+            }
+        }
         let _this = this;
         window.addEventListener('fullscreenchange', function (e) {
             console.log(window.document.fullscreenElement);
             if (window.document.fullscreenElement && e.target.tagName == 'IFRAME') {
-                console.log(_this.iframes.indexOf(e.target));
                 _this.iframes.splice(_this.iframes.indexOf(e.target), 1);
-                console.log(_this.iframes);
             } else if (e.target.tagName == 'IFRAME') {
                 _this.iframes.push(e.target);
-                console.log(e.target);
-                console.log(e.target.tagName);
             }
         })
     </script>
@@ -227,6 +287,7 @@
                 height: 2vh;
                 border-radius: 1px;
                 background-color: rgba(169, 152, 152, 0.532);
+                -webkit-backdrop-filter: blur(10px);
                 backdrop-filter: blur(10px);
                 display: flex;
                 flex-direction: row;
@@ -257,9 +318,9 @@
             .box-tag {
                 max-width: 16px;
                 max-height: 16px;
-                width: 2vh;
-                height: 2vh;
-                border-radius: 50%;
+                width: 12px;
+                height: 12px;
+                border-radius: 6px;
                 margin-right: 5px;
             }
         </style>
@@ -420,8 +481,8 @@
                         fill="#F9F9F9" p-id="2995"></path>
                 </svg>
             </div>
-            <div class="title ">
-                <h1>设置</h1>
+            <div class="title">
+                <div class="tip" tiptext="提示"><h1>设置</h1></div>      
             </div>
             <div class="line"></div>
             <div class="content" id="con-root">
@@ -542,7 +603,6 @@
 
                     }
                     function NewItemBtn(El, localdata, key) {
-                        console.log(localdata);
                         if (!localdata[0] instanceof Object || undefined == localdata[0]) {
                             return;
                         }
@@ -553,14 +613,15 @@
                             div.classList.add('item-box');
                             var tempdata = {};
                             btn = El.lastChild;
-                            console.log(btn);
                             El.removeChild(El.lastChild);
-                            El.appendChild(GetTemplate(localdata[0], tempdata, div));
+                            var newbox = GetTemplate(localdata[0], tempdata, div);
+                            AddDelButton(newbox, function () {
+                                El.removeChild(newbox);
+                                _this.ObjConfig[key].splice(_this.ObjConfig[key].indexOf(tempdata));
+                            })
+                            El.appendChild(newbox);
                             El.appendChild(btn);
-
-                            console.log(localdata instanceof Array);
                             _this.ObjConfig[key].push(tempdata);
-                            console.log(localdata);
                             Save = function () {
                                 var str = JSON.stringify(_this.ObjConfig);
                                 localStorage.setItem('Config', str);
