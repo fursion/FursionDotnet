@@ -159,23 +159,23 @@ class FursionElement extends HTMLElement {
         var script = document.createElement('script');
         script.type = "text/javascript";
         script.src = "https://code.jquery.com/jquery-3.6.1.min.js";
-        var scriptfu=document.createElement('script');
-        scriptfu.type="text/javascript";
-        scriptfu.src="fursion.js";
-        this.shadowDom.appendChild(script);
-        this.shadowDom.appendChild(this.template.content);
+        var scriptfu = document.createElement('script');
+        scriptfu.type = "text/javascript";
+        scriptfu.src = "fursion.js";
+        //this.shadowDom.appendChild(script);
+        this.appendChild(this.template.content);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         console.log(newValue);
     }
 }
-class IframeBox extends FursionElement{
-    Template=`<div class="Split-Box"></div>`;
-    constructor(){
+class IframeBox extends FursionElement {
+    Template = `<div class="Split-Box"></div>`;
+    constructor() {
         super();
     }
 }
-window.customElements.define("fs-iframebox",IframeBox);
+window.customElements.define("fs-iframebox", IframeBox);
 class fursionlogin extends FursionElement {
     Template = `<div><style>input[type=text]{height:20px;outline:none;box-sizing:border-box;margin:5px}input[type=text]::placeholder{padding-left:3px;font-size:1pt}input[type=text]:focus{outline:none;border:2px solid hsl(190,87%,20%)}input[type=password]{height:20px;outline:none;box-sizing:border-box;margin:5px}input[type=password]::placeholder{padding-left:3px;font-size:1pt}input[type=password]:focus{outline:none;border:2px solid hsl(190,87%,20%)}input[type=button]{height:20px;width:60px;border:0ch;border-radius:3px;margin:5px;outline:none;font-size:x-small;background-color:#457b9d;color:#edf6f9}input[type=button]:active{background-color:#a8dadc}.box{display:flex;flex-direction:column;align-items:center}</style><div class="box"><input type="text"name=""id="_input_text"placeholder="用户名"><input type="password"name=""id="_input_pwd"placeholder="密码"><input type="button"value="点击登录"></div></div>`;
     constructor() {
@@ -208,8 +208,171 @@ class QRCodeLogin extends FursionElement {
         super();
 
     }
+}
+
+/**
+ * 监控Iframe
+ */
+class MonitorIframe extends FursionElement {
+    constructor() {
+        super();
+    }
+    DoSomething() {
+        this.classList.add('monitor');
+        this.box = document.createElement("div");
+        this.box.classList.add('monitor');
+        this.appendChild(this.box);
+        this.Draw();
+        window.addEventListener('fullscreenchange', function (e) {
+            if (window.document.fullscreenElement && e.target.tagName == 'IFRAME') {
+                console.log(e.target);
+            } else if (e.target.tagName == 'IFRAME') {
+                e.target.dispatchEvent(MonitorEvent);
+            }
+        })
+    }
+    ReadConfig() {
+        if (localStorage.getItem('Config')) {
+            return localStorage.getItem('Config');
+        } else {
+            var url = 'Config.json';
+            var request = new XMLHttpRequest();
+            request.open('GET', url);
+            request.send(null);
+            request.onload = function () {
+                var json = JSON.parse(request.responseText);
+                localStorage.setItem('Config', JSON.stringify(json));
+                return localStorage.getItem('Config');
+            }
+        }
+    }
+    Draw() {
+        var config = this.ReadConfig();
+        let TaskS = JSON.parse(config)['iframes'];
+        TaskS.forEach(task => {
+            this.DrawMonitEntity(task);
+        });
+
+    }
+    DrawMonitEntity(MonitTask) {
+        var window = new MonitorWindow(this.box, MonitTask)
+    }
 
 }
+window.customElements.define("fs-monitor", MonitorIframe);
+const MonitorEvent = new CustomEvent('Exitallowscreen');
+/**
+ * 网页监控窗口
+ */
+class MonitorWindow {
+    constructor(root, data) {
+        this.Init(data);
+        root.appendChild(this.window);
+    }
+    Init(data) {
+        this.window = document.createElement("div");
+        this.window.id = data.name + "-window";
+        this.window.classList.add('window-2x2');
+        this.Bar = document.createElement("div");
+        this.Bar.classList.add('monitor-bar');
+        this.AddController(this.Bar, function (t) {
+
+        });
+        this.title = document.createElement("div");
+        this.title.classList.add('monitor-bar-block');
+        this.title.innerText = data.title;
+        this.Bar.appendChild(this.title);
+        var settingbtn = document.createElement("div");
+        settingbtn.classList.add('monitor-bar-block');
+        settingbtn.innerHTML = `<svg t="1666688039131" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23712" width="32" height="32"><path d="M928 608h-46.72l32-32L832 492.48V192a96 96 0 0 0-96-96H192a96 96 0 0 0-96 96v480a96 96 0 0 0 96 96h9.6a224 224 0 0 0 344.64 118.08l23.68 23.36 21.44-13.12 16.64-15.04V928h160v-46.72l32 32 108.16-108.16-12.16-20.48-14.72-16.64H928z" fill="#FFFFFF" p-id="23713"></path><path d="M416 704m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z" fill="#E9EAEB" p-id="23714"></path><path d="M128 288h672v448H192a64 64 0 0 1-64-64V288z" fill="#FFFFFF" p-id="23715"></path><path d="M192 128h544a64 64 0 0 1 64 64v96H128V192a64 64 0 0 1 64-64z" fill="#A3D4FF" p-id="23716"></path><path d="M608 192h96v32h-96z" fill="#2A5082" p-id="23717"></path><path d="M736 128H192a64 64 0 0 0-64 64v480a64 64 0 0 0 64 64h224v-32H192a32 32 0 0 1-32-32V192a32 32 0 0 1 32-32h544a32 32 0 0 1 32 32v224h32V192a64 64 0 0 0-64-64z" fill="#2A5082" p-id="23718"></path><path d="M704 256H192v32h512V256zM416 352H288v32h128v-32zM256 352H192v32h64v-32zM576 448H288v32h288v-32zM256 448H192v32h64v-32zM352 544H288v32h64v-32zM256 544H192v32h64v-32z" fill="#2A5082" p-id="23719"></path><path d="M896 736v-96h-72.96a102.4 102.4 0 0 0-5.44-13.76L869.12 576 800 506.88l-51.52 51.52a102.4 102.4 0 0 0-13.76-5.44V480H640v72.96a102.4 102.4 0 0 0-13.76 5.44L576 506.88 506.88 576l51.52 51.52a102.4 102.4 0 0 0-5.44 13.76H480v96h72.96a102.4 102.4 0 0 0 5.44 13.76L506.88 800 576 869.12l51.52-51.52a102.4 102.4 0 0 0 13.76 5.44V896h96v-72.96a102.4 102.4 0 0 0 13.76-5.44L800 869.12 869.12 800l-51.52-51.52a102.4 102.4 0 0 0 5.44-13.76z m-208 16a64 64 0 1 1 64-64 64 64 0 0 1-64 64z" fill="#A3D4FF" p-id="23720"></path><path d="M704 512v64l21.44 7.68 10.56 4.16 20.48 9.92 16-16 28.8-28.8 22.4 22.4-28.8 28.8-16 16 9.92 20.48c1.6 3.52 2.88 7.04 4.16 10.56L800 672h64v32h-64l-7.68 21.44c0 3.52-2.56 7.04-4.16 10.56l-9.92 20.48 16 16 28.8 28.8-22.4 22.4-28.8-28.8-16-16-20.48 9.92-10.56 4.16L704 800v64h-32v-64l-21.44-7.68-10.56-3.52-20.48-9.92-16 16-28.8 28.8-22.4-22.4 28.8-28.8 16-16-9.92-20.48c-1.6-3.52-2.88-7.04-4.16-10.56L576 704h-64v-32h64l7.68-21.44c0-3.52 2.56-7.04 4.16-10.56l9.92-20.48-16-16-28.8-28.8 22.4-22.4 28.8 28.8 16 16 20.48-9.92 10.56-4.16L672 576v-64h32m32-32h-96v72.96a102.4 102.4 0 0 0-13.76 5.44L576 506.88 506.88 576l51.52 51.52a102.4 102.4 0 0 0-5.44 13.76H480v96h72.96a102.4 102.4 0 0 0 5.44 13.76L506.88 800 576 869.12l51.52-51.52a102.4 102.4 0 0 0 13.76 5.44V896h96v-72.96a102.4 102.4 0 0 0 13.76-5.44L800 869.12 869.12 800l-51.52-51.52a102.4 102.4 0 0 0 5.44-13.76H896V640h-72.96a102.4 102.4 0 0 0-5.44-13.76L869.12 576 800 506.88l-51.52 51.52a102.4 102.4 0 0 0-13.76-5.44V480z" fill="#2A5082" p-id="23721"></path><path d="M688 656a32 32 0 1 1-32 32 32 32 0 0 1 32-32m0-32a64 64 0 1 0 64 64 64 64 0 0 0-64-64z" fill="#2A5082" p-id="23722"></path></svg>`;
+        var allowscreenBtn = document.createElement("div");
+        allowscreenBtn.classList.add('monitor-bar-block');
+        allowscreenBtn.onclick = function () {
+            _this.Iframe.requestFullscreen();
+            _this.temp = _this.Refresh;
+            _this.Refresh = false;
+        }
+        allowscreenBtn.innerHTML = `<svg t="1666688150327" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="25486" width="32" height="32"><path d="M512 512m-448 0a448 448 0 1 0 896 0 448 448 0 1 0-896 0Z" fill="#8C9EFF" p-id="25487"></path><path d="M567.12 477.88c-5.37 0-10.75-2.05-14.85-6.15-8.2-8.2-8.2-21.5 0-29.7l189-189c8.2-8.2 21.49-8.2 29.7 0 8.2 8.2 8.2 21.5 0 29.7l-189 189c-4.1 4.09-9.47 6.15-14.85 6.15zM456.88 477.88c-5.37 0-10.75-2.05-14.85-6.15l-189-189c-8.2-8.2-8.2-21.5 0-29.7s21.49-8.2 29.7 0l189 189c8.2 8.2 8.2 21.5 0 29.7a21.003 21.003 0 0 1-14.85 6.15zM756.12 777.12c-5.37 0-10.75-2.05-14.85-6.15l-189-189c-8.2-8.2-8.2-21.5 0-29.7s21.49-8.2 29.7 0l189 189c8.2 8.2 8.2 21.5 0 29.7-4.1 4.1-9.47 6.15-14.85 6.15zM267.88 777.12c-5.37 0-10.75-2.05-14.85-6.15-8.2-8.2-8.2-21.5 0-29.7l189-189c8.2-8.2 21.49-8.2 29.7 0 8.2 8.2 8.2 21.5 0 29.7l-189 189a20.96 20.96 0 0 1-14.85 6.15z" fill="#FFFFFF" p-id="25488"></path><path d="M260 438.5c-11.59 0-21-9.4-21-21V275.75c0-20.26 16.49-36.75 36.75-36.75H417.5c11.59 0 21 9.4 21 21s-9.41 21-21 21H281v136.5c0 11.6-9.41 21-21 21zM764 438.5c-11.59 0-21-9.4-21-21V281H606.5c-11.59 0-21-9.4-21-21s9.41-21 21-21h141.75c20.26 0 36.75 16.49 36.75 36.75V417.5c0 11.6-9.41 21-21 21zM748.25 281h0.14-0.14zM417.5 785H275.75c-20.26 0-36.75-16.49-36.75-36.75V606.5c0-11.6 9.41-21 21-21s21 9.4 21 21V743h136.5c11.59 0 21 9.4 21 21s-9.41 21-21 21zM748.25 785H606.5c-11.59 0-21-9.4-21-21s9.41-21 21-21H743V606.5c0-11.6 9.41-21 21-21s21 9.4 21 21v141.75c0 20.26-16.49 36.75-36.75 36.75z" fill="#FFFFFF" p-id="25489"></path></svg>`;
+        this.Bar.appendChild(allowscreenBtn);
+        this.Refresh = data.autorefresh;
+        this.ControllerUpdate();
+        this.Bar.appendChild(settingbtn);
+        this.window.appendChild(this.Bar);
+        this.Iframe = document.createElement("iframe");
+        this.Iframe.classList.add('monitor-iframe')
+        this.Iframe.src = data.url;
+        this.Iframe.allowFullscreen = true;
+
+        this.Iframe.addEventListener('Exitallowscreen', function () {
+            _this.Refresh = _this.temp;
+            _this.ControllerUpdate();
+        });
+        this.window.appendChild(this.Iframe);
+        var _this = this;
+        window.setInterval(function () {
+            if (_this.Refresh) {
+                _this.Iframe.src = _this.Iframe.src;
+            }
+        }, data.retime);
+    }
+    Refresh = false;
+    ControllerUpdate() {
+        if (this.Refresh) {
+            this.Controller.innerHTML = `<svg t="1666594278133" class="icon" viewBox="0 -50 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14161" width="32" height="32"><path d="M764.904497 251.418146 259.086289 251.418146c-143.076626 0-259.065314 115.989711-259.065314 259.065314 0 143.077649 115.988688 259.063267 259.065314 259.063267l505.818207 0c143.074579 0 259.063267-115.985618 259.063267-259.063267C1023.967764 367.407857 907.980099 251.418146 764.904497 251.418146zM764.904497 747.164974c-130.507356 0-236.682537-106.175181-236.682537-236.682537S634.397141 273.798876 764.904497 273.798876s236.683561 106.176205 236.683561 236.683561S895.411853 747.164974 764.904497 747.164974z" p-id="14162" fill="#1afa29"></path></svg>`;
+        } else {
+            this.Controller.innerHTML = `<svg t="1666593216208" class="icon" viewBox="0 -50 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13622" width="32" height="32" data-spm-anchor-id="a313x.7781069.0.i15"><path d="M764.867148 249.793136 259.0735 249.793136c-143.070486 0-259.052011 115.984594-259.052011 259.052011 0 143.07151 115.982548 259.050987 259.052011 259.050987l505.793648 0c143.067416 0 259.050987-115.979478 259.050987-259.050987C1023.917112 365.778754 907.933541 249.793136 764.867148 249.793136zM259.0735 745.516428c-130.501216 0-236.671281-106.172111-236.671281-236.671281 0-130.501216 106.170065-236.671281 236.671281-236.671281S495.744781 378.344954 495.744781 508.84617C495.744781 639.34534 389.574716 745.516428 259.0735 745.516428z" p-id="13623" fill="#515151" data-spm-anchor-id="a313x.7781069.0.i14"></path></svg>`;
+        }
+    }
+    AddController(node, event) {
+        this.Controller = document.createElement("div");
+        this.Controller.classList.add('monitor-bar-block');
+        this.Controller.id = "contor";
+        this.Controller.innerHTML = `<svg t="1666593216208" class="icon" viewBox="0 -50 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13622" width="32" height="32" data-spm-anchor-id="a313x.7781069.0.i15"><path d="M764.867148 249.793136 259.0735 249.793136c-143.070486 0-259.052011 115.984594-259.052011 259.052011 0 143.07151 115.982548 259.050987 259.052011 259.050987l505.793648 0c143.067416 0 259.050987-115.979478 259.050987-259.050987C1023.917112 365.778754 907.933541 249.793136 764.867148 249.793136zM259.0735 745.516428c-130.501216 0-236.671281-106.172111-236.671281-236.671281 0-130.501216 106.170065-236.671281 236.671281-236.671281S495.744781 378.344954 495.744781 508.84617C495.744781 639.34534 389.574716 745.516428 259.0735 745.516428z" p-id="13623" fill="#515151" data-spm-anchor-id="a313x.7781069.0.i14"></path></svg>`;
+        var _this = this;
+        this.Controller.onclick = function (e) {
+            _this.Refresh = !_this.Refresh;
+            event(_this.Refresh);
+            _this.ControllerUpdate();
+        }
+        node.appendChild(this.Controller);
+    }
+}
+class PopWindow extends FursionElement {
+    constructor() {
+        super();
+    }
+    DoSomething() {
+        this.PopWindow = document.createElement("div");
+        this.PopWindow.classList.add('pop-window');
+        this.window_content = document.createElement("div");
+        this.window_content.classList.add('pop-window-content');
+        this.PopWindow.appendChild(this.window_content);
+        this.window_header = document.createElement("div");
+        this.window_header.classList.add('pop-window-content-header');
+
+        this.closeBtn = document.createElement("span")
+        this.closeBtn.innerHTML = `&times;`;
+        this.closeBtn.onclick = function () {
+            _this.PopWindow.style.display = 'none';
+        };
+        this.window_header.appendChild(this.closeBtn);
+
+        this.window_body = document.createElement("div");
+        this.window_body.classList.add('pop-window-content-body');
+        this.window_body.innerHTML = `<p>弹窗文本...</p>`;
+        this.window_footer = document.createElement("div");
+        this.window_footer.classList.add('pop-window-content-footer')
+        this.window_content.appendChild(this.window_header);
+        this.window_content.appendChild(this.window_body);
+        this.window_content.appendChild(this.window_footer);
+        this.appendChild(this.PopWindow);
+        var _this = this;
+        document.getElementById('PopController').onclick = function () {
+            _this.PopWindow.style.display = 'block';
+        }
+    }
+}
+window.customElements.define("fs-popwindow", PopWindow);
 window.customElements.define("fs-qrlogin", QRCodeLogin);
 window.customElements.define("fs-con", fursionlogin);
 

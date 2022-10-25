@@ -5,124 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fursion.css">
+    <script src="fursion.js"></script>
     <title>Document</title>
 </head>
 
 <body>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .settingpage {
-            position: absolute;
-            width: 70%;
-            height: 80%;
-            border-radius: 10px;
-            background-color: rgb(255, 255, 255);
-            background-size: 100%;
-            margin: auto;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-
-        .close-btn {
-            float: right;
-            margin-top: 5px;
-            margin-right: 5px;
-            background-color: rgba(255, 255, 255, 0);
-            border: none;
-            width: 16px;
-            height: 16px;
-        }
-
-        .close-btn svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .mask {
-            width: 100vw;
-            height: 100vh;
-            background: url(https://cdn.pixabay.com/photo/2022/09/28/10/43/sea-7484743_1280.jpg);
-            background-size: 100%;
-        }
-
-        .mask .bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(240, 248, 255, 0.3);
-            filter: blur(0px);
-        }
-
-        .title h1 {
-            padding-left: 5%;
-        }
-
-        .line {
-            margin-left: 5%;
-            width: 90%;
-            border-bottom: 1px solid rgba(163, 158, 158, 0.5);
-        }
-
-        .content {
-            margin-left: 5%;
-            width: 90%;
-            height: 80%;
-            box-sizing: border-box;
-            border: 1px solid rgba(163, 158, 158, 0.5);
-            border-top: none;
-        }
-        .btn-group{
-            position: absolute;
-            bottom: 10px;
-            right: 5%;
-        }
-        .btn-group input[type=button]{
-            width: 80px;
-            border: none;
-            border-radius: 3px;
-            background-color: #1890FF;
-            font-size: 14px;
-            color: white;
-        }
-    </style>
-    <script>
-        function ClosePage() {
-            console.log('关闭页面');
-        }
-    </script>
-    <div class="mask">
-        <div class="bg"></div>
-        <div class="settingpage">
-            <div id="close-btn">
-                <svg class="close-btn" onclick="ClosePage()" t="1666437170706" class="icon" viewBox="0 0 1024 1024"
-                    version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2992" width="16" height="16">
-                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#F55300" p-id="2993">
-                    </path>
-                    <path
-                        d="M258.56 358.912l434.432 434.432a51.2 51.2 0 0 0 72.3968-72.3968L330.9568 286.5152A51.2 51.2 0 1 0 258.56 358.912z"
-                        fill="#F9F9F9" p-id="2994"></path>
-                    <path
-                        d="M258.56 712.192l434.432-434.432a51.2 51.2 0 0 1 72.448 72.3968l-434.4832 434.432A51.2 51.2 0 1 1 258.56 712.192z"
-                        fill="#F9F9F9" p-id="2995"></path>
-                </svg>
+    <fs-popwindow></fs-popwindow>
+    <button id="PopController">打开弹窗</button>
+    <div class="pop-window">
+        <div class="pop-window-content">
+            <div class="pop-window-content-header">
+                <span class="close">&times;</span>
+                <h2>弹窗头部</h2>
             </div>
-            <div class="title ">
-                <h1>设置</h1>
+            <div class="pop-window-content-body">
+                <p>弹窗文本...</p>
+                <p>弹窗文本...</p>
             </div>
-            <div class="line"></div>
-            <div class="content">
-     
-                <div></div>
-            </div>
-            <div class="btn-group">
-                <input type="button" value="保存">
-                <input type="button" value="取消" id="" style="background-color:#FF4D4F;">
+            <div class="pop-window-content-footer">
+                <h3>弹窗底部</h3>
             </div>
         </div>
     </div>
