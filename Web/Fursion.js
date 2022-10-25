@@ -41,8 +41,8 @@ class FursionElement extends HTMLElement {
     constructor() {
         super();
         this.init();
-        var _this=this;
-        document.addEventListener("DOMContentLoaded", function(){
+        var _this = this;
+        document.addEventListener("DOMContentLoaded", function () {
             _this.InitComponent();
             _this.DoSomething();
             console.log('DOM构建完成');
@@ -56,17 +56,23 @@ class FursionElement extends HTMLElement {
     }
     init() {
         var _this = this;
-        //this.InitComponent();
         window.onload = function () {
             console.log(_this.tagName);
             if (_this.CheckArguments()) {
-                //_this.DoSomething();
+                _this.OnloadSomething();
             }
         }
     }
-    InitComponent(){
+    /**
+     * 组件初始化
+     */
+    InitComponent() {
 
     }
+    /**
+     * 参数校验
+     * @returns
+     */
     CheckArguments() {
         if (JSON.parse(this.mode)) {
             this.DrawCustomComponent();
@@ -74,12 +80,26 @@ class FursionElement extends HTMLElement {
         }
         return this.findComponent(this);
     }
+    /**
+     * 组件查找
+     * @param {*查找域} p 
+     * @returns 查找结果  true/false
+     */
     findComponent(p) {
         return true;
+    }
+    /**
+     * 需要在onload之后执行的任务
+     */
+    OnloadSomething() {
+
     }
     DoSomething() {
 
     }
+    /**
+     * 绘制自定义组件在ShadowDom中
+     */
     DrawCustomComponent() {
         this.template = document.createElement('template');
         this.template.innerHTML = this.Template;
@@ -293,7 +313,7 @@ class PopWindow extends FursionElement {
         this.window_header.appendChild(this.H1);
         this.window_body = document.createElement("div");
         this.window_body.classList.add('pop-window-content-body');
-        
+
         this.window_footer = document.createElement("div");
         this.window_footer.classList.add('pop-window-content-footer')
         this.window_content.appendChild(this.window_header);
@@ -301,9 +321,9 @@ class PopWindow extends FursionElement {
         this.window_content.appendChild(this.window_footer);
         this.appendChild(this.PopWindow);
         var _this = this;
-        
+
     }
-    DoSomething(){
+    DoSomething() {
         this.setContent();
         this.setController();
     }
@@ -327,13 +347,13 @@ class PopWindow extends FursionElement {
     }
 }
 class JSONEditor extends FursionElement {
-    constructor(){
+    constructor() {
         super();
 
     }
     DoSomething() {
         var r = document.createElement("div")
-        r.id='con-root';
+        r.id = 'con-root';
         this.appendChild(r);
         this.Loadingfiles();
     }
