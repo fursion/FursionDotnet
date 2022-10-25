@@ -11,23 +11,14 @@
 </head>
 
 <body>
-    <fs-popwindow></fs-popwindow>
-    <button id="PopController">打开弹窗</button>
-    <div class="pop-window">
+    <fs-popwindow title="设置" controller="Pop">
         <div class="pop-window-content">
-            <div class="pop-window-content-header">
-                <span class="close">&times;</span>
-                <h2>弹窗头部</h2>
-            </div>
-            <div class="pop-window-content-body">
-                <p>弹窗文本...</p>
-                <p>弹窗文本...</p>
-            </div>
-            <div class="pop-window-content-footer">
-                <h3>弹窗底部</h3>
-            </div>
+            <fs-jsoneditor></fs-jsoneditor>
         </div>
-    </div>
+    </fs-popwindow>
+    <button id="Pop">弹窗</button>
+    <div style="height: 2000px;"></div>
+    <h1>测试</h1>
 </body>
 
 </html>

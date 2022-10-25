@@ -36,94 +36,17 @@ function EditText(id, message) {
     console.log(el);
     document.getElementsByClassName(id).innerHTML = message;
 }
-class fursionElement extends HTMLElement {
-    template = document.createElement("template");
-    constructor() {
-        super();
-        this.audiourl = "http://dl.stream.qqmusic.qq.com/C400000GVhGu078nKq.m4a?guid=9220424184&vkey=696FF233FC769EEB72E26BD9F659748F10A49FD28BF73190BF3BA5A75E17D7BFD5C97151B34272D2428909AA671967BE3A74588B2B9C0A11&uin=&fromtag=120032";
-        this.defimage = "data:image/svg+xml;base64,PHN2ZyB0PSIxNjY1Mzk1NTM5MDYwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ4NjQiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNNTEyIDUxLjJjMjUzLjk1MiAwIDQ2MC44IDIwNi44NDggNDYwLjggNDYwLjhzLTIwNi44NDggNDYwLjgtNDYwLjggNDYwLjgtNDYwLjgtMjA2Ljg0OC00NjAuOC00NjAuOCAyMDYuODQ4LTQ2MC44IDQ2MC44LTQ2MC44bTAtNTEuMkMyMjkuMzc2IDAgMCAyMjkuMzc2IDAgNTEyczIyOS4zNzYgNTEyIDUxMiA1MTIgNTEyLTIyOS4zNzYgNTEyLTUxMlM3OTQuNjI0IDAgNTEyIDB6IiBwLWlkPSI0ODY1Ij48L3BhdGg+PHBhdGggZD0iTTUxMiAzNDMuMDRjOTMuMTg0IDAgMTY4Ljk2IDc1Ljc3NiAxNjguOTYgMTY4Ljk2cy03NS43NzYgMTY4Ljk2LTE2OC45NiAxNjguOTYtMTY4Ljk2LTc1Ljc3Ni0xNjguOTYtMTY4Ljk2IDc1Ljc3Ni0xNjguOTYgMTY4Ljk2LTE2OC45Nm0wLTUxLjJjLTEyMS4zNDQgMC0yMjAuMTYgOTguODE2LTIyMC4xNiAyMjAuMTZzOTguODE2IDIyMC4xNiAyMjAuMTYgMjIwLjE2IDIyMC4xNi05OC44MTYgMjIwLjE2LTIyMC4xNi05OC44MTYtMjIwLjE2LTIyMC4xNi0yMjAuMTZ6IiBwLWlkPSI0ODY2Ij48L3BhdGg+PHBhdGggZD0iTTUxMiA1MTJtLTgxLjkyIDBhODEuOTIgODEuOTIgMCAxIDAgMTYzLjg0IDAgODEuOTIgODEuOTIgMCAxIDAtMTYzLjg0IDBaIiBwLWlkPSI0ODY3Ij48L3BhdGg+PC9zdmc+";
-        this.template.innerHTML = `
-        <style>
-        .audio-box{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 300px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 30px hsl(85, 0%, 90%) inset;
-        }
-        .audio-img{
-            margin-top:10px;
-            width: 200px;
-            height: 200px;
-        }
-        #audio-title{
-            margin-bottom: 10px;
-        }
-        .audio-player{
-            width: 260px;
-            height: 40px;
-            margin-bottom: 10px;
-        }.fs-glass{
-            filter :blur(1px);
-        }
-    </style>
-    <div class="audio-box">
-        <img draggable="false" class="audio-img" src="" alt="...">
-        <label id="audio-title">...</label>
-        <audio class="audio-player" src="" controls="controls"></audio>
-    </div>
-        `;
-        this.shadowDom = this.attachShadow({ mode: "open" });
-        this.shadowDom.appendChild(this.template.content);
-        this.audiotitle = this.shadowDom.querySelector('#audio-title');
-        this.addEvent();
-        this.audiolist = new Array();
-
-    }
-    static get observedAttributes() {
-        return ['src'];
-    }
-    get src() {
-        return this._src;
-    }
-    set src(value) {
-        console.log("属性设置");
-        this.setAttribute('src', value);
-    }
-    addEvent() {
-        this.audio = this.shadowDom.querySelector('.audio-player');
-        this.setImage();
-        this.audiotitle.innerHTML = "音乐";
-        this.audiotitle.style.color = 'rgba(0,0,233,1)';
-        this.audio.setAttribute("src", this.audiourl);
-    }
-    setImage() {
-        let image = this.shadowDom.querySelector('.audio-img');
-        image.setAttribute("src", this.defimage);
-    }
-    connectedCallback() {
-        console.log("挂载组件");
-        this.src = this.audiourl;
-    }
-    disconnectedCallback() {
-        console.log("移除组件");
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        this._src = newValue;
-        this.audiourl = this.src;
-        this._updateRendering();
-    }
-    _updateRendering() {
-        this.audio.setAttribute("src", this.audiourl);
-    }
-}
 class FursionElement extends HTMLElement {
     Template = ``;
     constructor() {
         super();
         this.init();
+        var _this=this;
+        document.addEventListener("DOMContentLoaded", function(){
+            _this.InitComponent();
+            _this.DoSomething();
+            console.log('DOM构建完成');
+        });
     }
     get mode() {
         return this.getAttribute('mode');
@@ -133,11 +56,16 @@ class FursionElement extends HTMLElement {
     }
     init() {
         var _this = this;
+        //this.InitComponent();
         window.onload = function () {
+            console.log(_this.tagName);
             if (_this.CheckArguments()) {
-                _this.DoSomething();
+                //_this.DoSomething();
             }
         }
+    }
+    InitComponent(){
+
     }
     CheckArguments() {
         if (JSON.parse(this.mode)) {
@@ -337,29 +265,35 @@ class MonitorWindow {
         node.appendChild(this.Controller);
     }
 }
+/**
+ * 弹窗
+ */
 class PopWindow extends FursionElement {
     constructor() {
         super();
     }
-    DoSomething() {
+    InitComponent() {
         this.PopWindow = document.createElement("div");
         this.PopWindow.classList.add('pop-window');
         this.window_content = document.createElement("div");
-        this.window_content.classList.add('pop-window-content');
+        this.window_content.classList.add('pop-window-contentbox');
         this.PopWindow.appendChild(this.window_content);
         this.window_header = document.createElement("div");
         this.window_header.classList.add('pop-window-content-header');
-
         this.closeBtn = document.createElement("span")
+        this.closeBtn.id = "close"
         this.closeBtn.innerHTML = `&times;`;
+        this.closeBtn.title = '关闭';
         this.closeBtn.onclick = function () {
             _this.PopWindow.style.display = 'none';
         };
+        this.H1 = document.createElement('h1');
+        this.H1.innerText = this.title;
         this.window_header.appendChild(this.closeBtn);
-
+        this.window_header.appendChild(this.H1);
         this.window_body = document.createElement("div");
         this.window_body.classList.add('pop-window-content-body');
-        this.window_body.innerHTML = `<p>弹窗文本...</p>`;
+        
         this.window_footer = document.createElement("div");
         this.window_footer.classList.add('pop-window-content-footer')
         this.window_content.appendChild(this.window_header);
@@ -367,11 +301,179 @@ class PopWindow extends FursionElement {
         this.window_content.appendChild(this.window_footer);
         this.appendChild(this.PopWindow);
         var _this = this;
-        document.getElementById('PopController').onclick = function () {
-            _this.PopWindow.style.display = 'block';
+        
+    }
+    DoSomething(){
+        this.setContent();
+        this.setController();
+    }
+    setContent() {
+        console.log('内容设置');
+        var content = this.querySelector('.pop-window-content');
+        console.log(content);
+        this.window_body.appendChild(content);
+    }
+    setController() {
+        this.controller = document.getElementById(this.getAttribute('controller'));
+        if (this.controller) {
+            var _this = this;
+            this.controller.onclick = function () {
+                _this.PopWindow.style.display = 'block';
+            }
+        } else {
+            console.error('没找到控制器,请通过controller属性设置控制器');
         }
+
     }
 }
+class JSONEditor extends FursionElement {
+    constructor(){
+        super();
+
+    }
+    DoSomething() {
+        var r = document.createElement("div")
+        r.id='con-root';
+        this.appendChild(r);
+        this.Loadingfiles();
+    }
+    Loadingfiles() {
+        let config = localStorage.getItem('Config');
+        this.ObjConfig = JSON.parse(config);
+        let ElRoot = document.getElementById('con-root');
+        while (ElRoot.hasChildNodes()) {
+            ElRoot.removeChild(ElRoot.firstChild);
+        }
+        this.getJsonDOM(this.ObjConfig, ElRoot);
+    }
+    getJsonDOM(obj, El, key, AddDelBtn, lastobj) {
+        if (obj instanceof Array) {
+            for (var item in obj) {
+                if (obj[item] instanceof Object) {
+                    this.getJsonDOM(obj[item], this.DrawItem(item, obj, El, false), item, true, obj);
+                } else {
+                    this.DrawItem(item, obj, El, true);
+                }
+
+            }
+        } else {
+            for (var item in obj) {
+                if (obj[item] instanceof Object) {
+                    this.getJsonDOM(obj[item], this.DrawItem(item, obj, El, false), item);
+                } else {
+                    this.DrawItem(item, obj, El, true);
+                }
+            }
+            if (AddDelBtn) {
+                this.AddDelButton(El, function () {
+                    lastobj.splice(key);
+                    El.parentNode.removeChild(El);
+                });
+            }
+        }
+        if (key != undefined) {
+            this.NewItemBtn(El, obj, key);
+        }
+    }
+    AddDelButton(El, event) {
+        let div = document.createElement("div");
+        div.classList.add('new-item');
+        div.innerHTML = `<svg t="1666539305873" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15714" width="16" height="16"><path d="M67.661 517.598a447.654 455.375 0 1 0 895.308 0 447.654 455.375 0 1 0-895.308 0Z" fill="#d81e06" p-id="15715"></path><path d="M683.858 350.83H335.13c-4.4 0-8-3.6-8-8v-24.345c0-4.4 3.6-8 8-8h348.729c4.4 0 8 3.6 8 8v24.345c-0.001 4.4-3.601 8-8.001 8zM657.18 383.79h-34.698c0.033 0.515 0.056 1.034 0.056 1.557v267.779c0 33.728-27.596 61.324-61.324 61.324H457.909c-34.023 0-61.859-27.837-61.859-61.859V385.347c0-0.524 0.023-1.042 0.056-1.557H361.81c-6.6 0-12 5.4-12 12v360.012c0 6.6 5.4 12 12 12h295.37c6.6 0 12-5.4 12-12V395.79c0-6.6-5.4-12-12-12z" fill="#FFFFFF" p-id="15716"></path><path d="M511.333 251.135m-43.846 0a43.846 43.846 0 1 0 87.692 0 43.846 43.846 0 1 0-87.692 0Z" fill="#FFFFFF" p-id="15717"></path></svg>`;
+        div.onclick = event;
+        El.appendChild(div);
+    }
+    GetTemplate(localdata, tempdata, tproot) {
+        for (var item in localdata) {
+
+            if (localdata[item] instanceof Object) {
+                let div = document.createElement("div");
+                div.classList.add('item-box');
+                tproot.appendChild(this.GetTemplate(localdata[item], tempdata[item], div));
+            } else {
+                tproot.appendChild(this.DrawTemplateItem(item, tempdata));
+            }
+        }
+        return tproot;
+    }
+    DrawTemplateItem(item, tempdata) {
+        let itembox = document.createElement("div");
+        itembox.classList.add('item-box');
+        let label = document.createElement("label");
+        let input = document.createElement("input");
+        input.onchange = function () {
+            tempdata[item] = input.value;
+        }
+        label.innerText = item + " :";
+        itembox.appendChild(label);
+        itembox.appendChild(input);
+        return itembox;
+    }
+    DrawItem(nodename, data, lastnode, isDr) {
+        if (isDr) {
+            let div = document.createElement("div");
+            div.classList.add('item');
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.value = data[nodename];
+            input.style.width = Object.keys(data[nodename]).length * 16 + 'px';
+            input.onchange = function () {
+                data[nodename] = input.value;
+            }
+            label.innerText = nodename + " :";
+            div.appendChild(label);
+            div.appendChild(input);
+            lastnode.appendChild(div);
+            return div;
+        } else {
+            let div = document.createElement("div");
+            div.classList.add('item-box');
+            let label = document.createElement("label");
+            label.innerHTML = nodename;
+            div.appendChild(label);
+            lastnode.appendChild(div);
+            return div;
+        }
+
+    }
+    NewItemBtn(El, localdata, key) {
+        if (!localdata[0] instanceof Object || undefined == localdata[0]) {
+            return;
+        }
+        let div = document.createElement("div");
+        div.classList.add('new-item');
+        var _this = this;
+        div.onclick = function () {
+            let div = document.createElement("div");
+            div.classList.add('item-box');
+            var tempdata = {};
+            btn = El.lastChild;
+            El.removeChild(El.lastChild);
+            var newbox = GetTemplate(localdata[0], tempdata, div);
+            AddDelButton(newbox, function () {
+                El.removeChild(newbox);
+                _this.ObjConfig[key].splice(_this.ObjConfig[key].indexOf(tempdata));
+            })
+            El.appendChild(newbox);
+            El.appendChild(btn);
+            _this.ObjConfig[key].push(tempdata);
+            Save = function () {
+                var str = JSON.stringify(_this.ObjConfig);
+                localStorage.setItem('Config', str);
+                console.log(str);
+                location.reload();
+            }
+        }
+        div.innerHTML = `<svg t="1666521266920" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2177" width="16" height="16"><path d="M512 938.666667C276.362667 938.666667 85.333333 747.637333 85.333333 512S276.362667 85.333333 512 85.333333s426.666667 191.029333 426.666667 426.666667-191.029333 426.666667-426.666667 426.666667z m0-64c200.298667 0 362.666667-162.368 362.666667-362.666667S712.298667 149.333333 512 149.333333 149.333333 311.701333 149.333333 512s162.368 362.666667 362.666667 362.666667z m32-394.666667h128a32 32 0 0 1 0 64H544v128a32 32 0 0 1-64 0V544H352a32 32 0 0 1 0-64h128V352a32 32 0 0 1 64 0v128z" p-id="2178"></path></svg>`;
+        El.appendChild(div);
+    }
+    Save() {
+        var str = JSON.stringify(ObjConfig);
+        localStorage.setItem('Config', str);
+        console.log(str);
+        location.reload();
+    }
+}
+window.customElements.define("fs-jsoneditor", JSONEditor);
 window.customElements.define("fs-popwindow", PopWindow);
 window.customElements.define("fs-qrlogin", QRCodeLogin);
 window.customElements.define("fs-con", fursionlogin);

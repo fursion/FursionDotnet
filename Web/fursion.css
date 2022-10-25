@@ -151,18 +151,26 @@ input::placeholder {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.pop-window-content {
+.pop-window-contentbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     position: relative;
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
+    border-radius: 5px;
     width: 80%;
+    min-height: 150px;
+    max-height: 80vh;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s
+}
+.pop-window-content{
+    padding: 12px 16px;
 }
 
 @-webkit-keyframes animatetop {
@@ -190,17 +198,39 @@ input::placeholder {
 }
 
 .pop-window-content-header {
-    padding: 2px 16px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    min-height: 50px;
     background-color: #5cb85c;
     color: white;
 }
+.pop-window-content-header h1,h2{
+    margin: 0;
+    padding-left: 15px;
+}
+.pop-window-content-header #close{
+    position: absolute;
+    right: 5px;
+}
 
 .pop-window-content-body {
-    padding: 2px 16px;
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    overflow: auto;
 }
 
 .pop-window-content-footer {
-    padding: 2px 16px;
+
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     background-color: #5cb85c;
+    min-height: 50px;
     color: white;
 }
