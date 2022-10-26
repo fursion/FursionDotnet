@@ -45,7 +45,7 @@ class FursionElement extends HTMLElement {
         document.addEventListener("DOMContentLoaded", function () {
             _this.InitComponent();
             _this.DoSomething();
-            console.log('DOM构建完成');
+            console.log('🧐${this.name}🧐自定义DOM添加完成');
         });
     }
     get mode() {
@@ -170,32 +170,42 @@ class MonitorIframe extends FursionElement {
         this.box = document.createElement("div");
         this.box.classList.add('monitor');
         this.appendChild(this.box);
-        this.Draw();
+        this.ReadConfig();
         window.addEventListener('fullscreenchange', function (e) {
             if (window.document.fullscreenElement && e.target.tagName == 'IFRAME') {
                 console.log(e.target);
             } else if (e.target.tagName == 'IFRAME') {
                 e.target.dispatchEvent(MonitorEvent);
             }
-        })
+        });
+        this.allowfullscreen = document.getElementById('allscbtn');
+        console.log(this.allowfullscreen);
+        var _this = this;
+        if (this.allowfullscreen) {
+            this.allowfullscreen.addEventListener("click", function () {
+                console.log("quan")
+                _this.requestFullscreen();
+            })
+        }
     }
     ReadConfig() {
         if (localStorage.getItem('Config')) {
-            return localStorage.getItem('Config');
+            this.Draw();
         } else {
             var url = 'Config.json';
             var request = new XMLHttpRequest();
-            request.open('GET', url);
+            request.open('GET', url, true);
             request.send(null);
+            var _this = this;
             request.onload = function () {
                 var json = JSON.parse(request.responseText);
                 localStorage.setItem('Config', JSON.stringify(json));
-                return localStorage.getItem('Config');
+                _this.Draw();
             }
         }
     }
     Draw() {
-        var config = this.ReadConfig();
+        var config = localStorage.getItem('Config');
         let TaskS = JSON.parse(config)['iframes'];
         TaskS.forEach(task => {
             this.DrawMonitEntity(task);
@@ -244,14 +254,24 @@ class MonitorWindow {
         this.Bar.appendChild(allowscreenBtn);
 
         this.Refresh = (JSON.parse(data.autorefresh));
-
+        this.UrlSetting = document.createElement("input");
+        this.UrlSetting.type = 'text';
+        this.UrlSetting.value = data.url;
+        this.TodoBtn = document.createElement("div");
+        this.TodoBtn.classList.add('monitor-bar-block');
+        this.TodoBtn.id = 'tourl';
+        this.TodoBtn.innerHTML = `<svg t="1666787053532" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8863" width="32" height="32"><path d="M832 512c0 9.6-3.2 16-9.6 22.4l-3.2 3.2-192 192-3.2 3.2c-12.8 9.6-28.8 9.6-38.4 0l-3.2-3.2-3.2-3.2c-9.6-12.8-9.6-28.8 0-38.4l3.2-3.2 137.6-137.6H220.8c-16-6.4-28.8-19.2-28.8-35.2s12.8-28.8 28.8-32h502.4l-137.6-137.6-3.2-3.2c-9.6-12.8-9.6-28.8 3.2-41.6s28.8-12.8 41.6-3.2l3.2 3.2 192 192 3.2 3.2c3.2 3.2 6.4 9.6 6.4 19.2z" fill="#221814" p-id="8864"></path></svg>`;
+        this.TodoBtn.addEventListener("click", function () { _this.Iframe.src = _this.UrlSetting.value; data.url = _this.UrlSetting.value; });
         this.ControllerUpdate();
+        this.Bar.appendChild(this.UrlSetting);
+        this.Bar.appendChild(this.TodoBtn);
         this.Bar.appendChild(settingbtn);
         this.window.appendChild(this.Bar);
         this.Iframe = document.createElement("iframe");
         this.Iframe.classList.add('monitor-iframe')
         this.Iframe.src = data.url;
         this.Iframe.allowFullscreen = true;
+
 
         this.Iframe.addEventListener('Exitallowscreen', function () {
             _this.Refresh = _this.temp;
@@ -422,7 +442,6 @@ class JSONEditor extends FursionElement {
     }
     Loadingfiles() {
         let config = localStorage.getItem('Config');
-        console.log(config);
         this.ObjConfig = JSON.parse(config);
         let ElRoot = document.getElementById('con-root');
         while (ElRoot.hasChildNodes()) {
