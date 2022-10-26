@@ -242,7 +242,9 @@ class MonitorWindow {
         }
         allowscreenBtn.innerHTML = `<svg t="1666688150327" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="25486" width="32" height="32"><path d="M512 512m-448 0a448 448 0 1 0 896 0 448 448 0 1 0-896 0Z" fill="#8C9EFF" p-id="25487"></path><path d="M567.12 477.88c-5.37 0-10.75-2.05-14.85-6.15-8.2-8.2-8.2-21.5 0-29.7l189-189c8.2-8.2 21.49-8.2 29.7 0 8.2 8.2 8.2 21.5 0 29.7l-189 189c-4.1 4.09-9.47 6.15-14.85 6.15zM456.88 477.88c-5.37 0-10.75-2.05-14.85-6.15l-189-189c-8.2-8.2-8.2-21.5 0-29.7s21.49-8.2 29.7 0l189 189c8.2 8.2 8.2 21.5 0 29.7a21.003 21.003 0 0 1-14.85 6.15zM756.12 777.12c-5.37 0-10.75-2.05-14.85-6.15l-189-189c-8.2-8.2-8.2-21.5 0-29.7s21.49-8.2 29.7 0l189 189c8.2 8.2 8.2 21.5 0 29.7-4.1 4.1-9.47 6.15-14.85 6.15zM267.88 777.12c-5.37 0-10.75-2.05-14.85-6.15-8.2-8.2-8.2-21.5 0-29.7l189-189c8.2-8.2 21.49-8.2 29.7 0 8.2 8.2 8.2 21.5 0 29.7l-189 189a20.96 20.96 0 0 1-14.85 6.15z" fill="#FFFFFF" p-id="25488"></path><path d="M260 438.5c-11.59 0-21-9.4-21-21V275.75c0-20.26 16.49-36.75 36.75-36.75H417.5c11.59 0 21 9.4 21 21s-9.41 21-21 21H281v136.5c0 11.6-9.41 21-21 21zM764 438.5c-11.59 0-21-9.4-21-21V281H606.5c-11.59 0-21-9.4-21-21s9.41-21 21-21h141.75c20.26 0 36.75 16.49 36.75 36.75V417.5c0 11.6-9.41 21-21 21zM748.25 281h0.14-0.14zM417.5 785H275.75c-20.26 0-36.75-16.49-36.75-36.75V606.5c0-11.6 9.41-21 21-21s21 9.4 21 21V743h136.5c11.59 0 21 9.4 21 21s-9.41 21-21 21zM748.25 785H606.5c-11.59 0-21-9.4-21-21s9.41-21 21-21H743V606.5c0-11.6 9.41-21 21-21s21 9.4 21 21v141.75c0 20.26-16.49 36.75-36.75 36.75z" fill="#FFFFFF" p-id="25489"></path></svg>`;
         this.Bar.appendChild(allowscreenBtn);
-        this.Refresh = data.autorefresh;
+
+        this.Refresh = (JSON.parse(data.autorefresh));
+
         this.ControllerUpdate();
         this.Bar.appendChild(settingbtn);
         this.window.appendChild(this.Bar);
@@ -310,7 +312,6 @@ class PopWindow extends FursionElement {
         this.H1 = document.createElement('h1');
         this.H1.innerText = this.title;
         this.window_header.appendChild(this.closeBtn);
-        this.window_header.appendChild(this.H1);
         this.window_body = document.createElement("div");
         this.window_body.classList.add('pop-window-content-body');
 
@@ -325,13 +326,35 @@ class PopWindow extends FursionElement {
     }
     DoSomething() {
         this.setContent();
+        this.setHeader();
+        this.setfotter();
         this.setController();
+        var _closebtn = this.querySelector('.pop-closebtn');
+        if (_closebtn) {
+            var _this = this;
+            _closebtn.onclick = function () {
+                _this.PopWindow.style.display = 'none';
+            }
+        }
     }
     setContent() {
-        console.log('内容设置');
         var content = this.querySelector('.pop-window-content');
-        console.log(content);
-        this.window_body.appendChild(content);
+        if (content) {
+            this.window_body.appendChild(content);
+        }
+
+    }
+    setHeader() {
+        var header = this.querySelector(".pop-window-header");
+        if (header) {
+            this.window_header.appendChild(header);
+        }
+    }
+    setfotter() {
+        var footer = this.querySelector(".pop-window-footer");
+        if (footer) {
+            this.window_footer.appendChild(footer);
+        }
     }
     setController() {
         this.controller = document.getElementById(this.getAttribute('controller'));
@@ -349,16 +372,57 @@ class PopWindow extends FursionElement {
 class JSONEditor extends FursionElement {
     constructor() {
         super();
-
     }
     DoSomething() {
         var r = document.createElement("div")
         r.id = 'con-root';
         this.appendChild(r);
+        this.findController();
+        this.Loadingfiles();
+
+    }
+    findController() {
+        this.SaveBtn = document.getElementById(this.getAttribute('save'));
+        this.ResetBtn = document.getElementById(this.getAttribute('reset'));
+        this.CancelBtn = document.getElementById(this.getAttribute('cancel'));
+        var _this = this;
+        this.SaveBtn.onclick = function () {
+            _this.SaveEvent();
+        };
+        this.ResetBtn.onclick = function () {
+            _this.ResetEvent();
+        }
+        this.CancelBtn.addEventListener("click", function (e) {
+            _this.CancelEvent();
+        }, false);
+    }
+    SaveEvent() {
+        console.log('🧐');
+        console.log(this.ObjConfig);
+        var str = JSON.stringify(this.ObjConfig);
+        localStorage.setItem('Config', str);
+        console.log(str);
+        location.reload();
+    }
+    ResetEvent() {
+        console.log('🧐');
+        var url = 'Config.json';
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.send(null);
+        var _this = this;
+        request.onload = function () {
+            var json = JSON.parse(request.responseText);
+            localStorage.setItem('Config', JSON.stringify(json));
+            _this.Loadingfiles();
+        }
+    }
+    CancelEvent() {
         this.Loadingfiles();
     }
     Loadingfiles() {
         let config = localStorage.getItem('Config');
+        console.log(config);
         this.ObjConfig = JSON.parse(config);
         let ElRoot = document.getElementById('con-root');
         while (ElRoot.hasChildNodes()) {
@@ -385,8 +449,13 @@ class JSONEditor extends FursionElement {
                 }
             }
             if (AddDelBtn) {
+                var _this = this;
                 this.AddDelButton(El, function () {
+                    console.log('🧐:', key);
+                    console.log(_this.ObjConfig);
                     lastobj.splice(key);
+                    console.log(lastobj);
+                    console.log(_this.ObjConfig);
                     El.parentNode.removeChild(El);
                 });
             }
@@ -466,17 +535,20 @@ class JSONEditor extends FursionElement {
             let div = document.createElement("div");
             div.classList.add('item-box');
             var tempdata = {};
-            btn = El.lastChild;
+            var btn = El.lastChild;
+
             El.removeChild(El.lastChild);
-            var newbox = GetTemplate(localdata[0], tempdata, div);
-            AddDelButton(newbox, function () {
+            var newbox = _this.GetTemplate(localdata[0], tempdata, div);
+            _this.AddDelButton(newbox, function () {
                 El.removeChild(newbox);
                 _this.ObjConfig[key].splice(_this.ObjConfig[key].indexOf(tempdata));
+                console.log(_this.ObjConfig);
             })
             El.appendChild(newbox);
             El.appendChild(btn);
             _this.ObjConfig[key].push(tempdata);
-            Save = function () {
+            _this.SaveEvent = function () {
+                console.log('🧐🧐🧐🧐🧐🧐🧐🧐');
                 var str = JSON.stringify(_this.ObjConfig);
                 localStorage.setItem('Config', str);
                 console.log(str);
@@ -485,12 +557,6 @@ class JSONEditor extends FursionElement {
         }
         div.innerHTML = `<svg t="1666521266920" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2177" width="16" height="16"><path d="M512 938.666667C276.362667 938.666667 85.333333 747.637333 85.333333 512S276.362667 85.333333 512 85.333333s426.666667 191.029333 426.666667 426.666667-191.029333 426.666667-426.666667 426.666667z m0-64c200.298667 0 362.666667-162.368 362.666667-362.666667S712.298667 149.333333 512 149.333333 149.333333 311.701333 149.333333 512s162.368 362.666667 362.666667 362.666667z m32-394.666667h128a32 32 0 0 1 0 64H544v128a32 32 0 0 1-64 0V544H352a32 32 0 0 1 0-64h128V352a32 32 0 0 1 64 0v128z" p-id="2178"></path></svg>`;
         El.appendChild(div);
-    }
-    Save() {
-        var str = JSON.stringify(ObjConfig);
-        localStorage.setItem('Config', str);
-        console.log(str);
-        location.reload();
     }
 }
 window.customElements.define("fs-jsoneditor", JSONEditor);

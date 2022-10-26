@@ -4,7 +4,7 @@
         {
             "name": "asset-repair",
             "title": "ITAM维修中工单",
-            "autorefresh": "true",
+            "autorefresh": "false",
             "retime": "30000",
             "tag_color": "hsla(35, 75%, 60%, 0.7)",
             "url": "https://asset.bytedance.net/real-asset/process/asset-repair?current=1&pageSize=50&store%5BsubStatus%5D=1301%2C1302%2C1303%2C1304%2C1305%2C1306%2C1307%2C1310%2C1311%2C1314%2C1315%2C1316%2C1313%2C1312%2C1318%2C1317%2C1319%2C1321%2C1308%2C1309&store%5BregionId%5D=7012805251267382304&store%5Bsearch%5D="
@@ -12,7 +12,7 @@
         {
             "name": "asset-borrow",
             "title": "ITAM借用未完成工单",
-            "autorefresh": "true",
+            "autorefresh": "false",
             "retime": "20000",
             "tag_color": "hsla(185, 75%, 60%, 0.7)",
             "url": "https://asset.bytedance.net/real-asset/process/asset-borrow?current=1&pageSize=20&regionId=7012805251267382304&subStatus=1501%2C1502%2C1507"
@@ -32,20 +32,6 @@
             "retime": "60000",
             "tag_color": "hsla(110, 75%, 60%, 0.7)",
             "url": "https://imds.bytedance.net/dashboard"
-        }
-    ],
-    "sites": [
-        {
-            "id": "01",
-            "content": "测试1"
-        },
-        {
-            "id": "02",
-            "content": "测试2"
-        },
-        {
-            "id": "03",
-            "content": "测试3"
         }
     ]
 }
