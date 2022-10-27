@@ -89,20 +89,22 @@ input::placeholder {
     width: 100vw;
     height: 100vh;
     display: flex;
-    align-items: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
-    background-color: rgba(169, 152, 152, 0.532);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    overflow: hidden;
+    background-color: white;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .monitor-window {}
 
 .monitor-iframe {
+    border: none;
     width: 100vw;
     height: 100vh;
-    transform: scale(0.5, 0.46);
+    transform: scale(0.49, 0.45);
     transform-origin: 0 0;
 }
 
@@ -128,7 +130,6 @@ input::placeholder {
 .monitor-bar {
     height: 30px;
     width: 100%;
-    background-color: rgba(155, 156, 157, 0.7);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -302,7 +303,6 @@ h2 {
     width: 100%;
     height: 2vh;
     min-height: 18px;
-    background-color: rgba(128, 110, 86, 0.731);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     display: flex;

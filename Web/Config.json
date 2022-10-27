@@ -5,7 +5,7 @@
             "name": "asset-repair",
             "title": "ITAM维修中工单",
             "autorefresh": "true",
-            "retime": "30000",
+            "retime": "60000",
             "tag_color": "hsla(35, 75%, 60%, 0.7)",
             "url": "https://asset.bytedance.net/real-asset/process/asset-repair?current=1&pageSize=10&store%5BsubStatus%5D=1301%2C1302%2C1303%2C1304%2C1305%2C1306%2C1307%2C1308%2C1309%2C1310%2C1311%2C1312%2C1313%2C1314%2C1315%2C1316%2C1317%2C1318%2C1319%2C1321&store%5BregionId%5D=7012805251267382304&store%5Bsearch%5D="
         },
@@ -13,7 +13,7 @@
             "name": "asset-borrow",
             "title": "ITAM借用未完成工单",
             "autorefresh": "true",
-            "retime": "20000",
+            "retime": "60000",
             "tag_color": "hsla(185, 75%, 60%, 0.7)",
             "url": "https://asset.bytedance.net/real-asset/process/asset-borrow?current=1&pageSize=20&regionId=7012805251267382304&subStatus=1501%2C1502%2C1507"
         },
@@ -21,13 +21,13 @@
             "name": "asset-appropriation",
             "title": "ITAM领用未完成工单",
             "autorefresh": "true",
-            "retime": "10000",
+            "retime": "60000",
             "tag_color": "hsla(110, 75%, 60%, 0.7)",
             "url": "https://asset.bytedance.net/real-asset/process/asset-appropriation?current=1&pageSize=20&regionId=7012805251267382304&subStatus=1001%2C1002%2C1004%2C1007%2C1008%2C1009%2C1010%2C1011"
         },
         {
             "name": "real-asset",
-            "title": "💻回购未完成工单",
+            "title": "回购未完成工单",
             "autorefresh": "true",
             "retime": "60000",
             "tag_color": "hsla(110, 75%, 60%, 0.7)",
@@ -47,7 +47,7 @@
             "autorefresh": "false",
             "retime": "60000",
             "tag_color": "hsla(110, 75%, 60%, 0.7)",
-            "url": "https://asset.bytedance.net/real-asset/process/asset-repurchase?current=1&pageSize=10&store%5BsubStatus%5D=1203%2C1204%2C1205%2C1206%2C1207%2C1208%2C1201%2C1202&store%5BregionId%5D=7012805251267382304&store%5Bsearch%5D="
+            "url": "https://apaas.feishuapp.cn/ae/ui/apps/1734416830251038/appPages/ofb3uah4p1bkd1?embeddedRecordId-ac75u7jqki7qnn=1744458361851915&tabKey=&dataGrid%401745015700625412%26o6ou1pw7hchltm=%7B%22snapshotId%22%3A1745183733825576%7D&dataGrid%401744458361851915%26o6ou1pw7hchltm=%7B%22snapshotId%22%3A1745483206543390%7D"
         }
     ]
 }
