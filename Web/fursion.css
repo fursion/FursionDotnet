@@ -102,7 +102,7 @@ input::placeholder {
 .monitor-iframe {
     width: 100vw;
     height: 100vh;
-    transform: scale(0.5, 0.45);
+    transform: scale(0.5, 0.46);
     transform-origin: 0 0;
 }
 
@@ -126,7 +126,7 @@ input::placeholder {
 }
 
 .monitor-bar {
-    height: 40px;
+    height: 30px;
     width: 100%;
     background-color: rgba(155, 156, 157, 0.7);
     display: flex;
@@ -134,6 +134,33 @@ input::placeholder {
     align-items: center;
     border: none;
 }
+
+.monitor-bar input {
+    width: 300px;
+    border: none;
+    border-radius: 3px;
+    border-bottom: solid;
+    background-color: #f4f4f437;
+    overflow: hidden;
+}
+
+.monitor-bar #tourl:hover {
+    background-color: #b0adad5d;
+    color: white;
+}
+
+.monitor-bar #tourl:active {
+    background-color: #cac8c8a8;
+}
+
+.monitor-bar #tourl {
+    width: 40px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: #5f5f5fcf;
+}
+
+
 
 .pop-window {
     display: none;
@@ -270,6 +297,7 @@ h2 {
 .btn-bl {
     background-color: #3370FF;
 }
+
 .nva-bar {
     width: 100%;
     height: 2vh;
@@ -347,6 +375,7 @@ h2 {
 .iframeController svg {
     height: 30px;
 }
+
 .line {
     margin-left: 5%;
     width: 90%;
